@@ -41,7 +41,7 @@ pip install -r requirements.txt
 ```
 
 
-3. **Variables de Envorno:**
+3. **Variables de Entorno:**
 Crea un archivo `.env` en la raíz del proyecto y completa con tus credenciales. **Nunca compartas este archivo.**
 ```env
 # API Keys de Exchanges

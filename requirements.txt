@@ -1,0 +1,3 @@
+yfinance
+ccxt
+psycopg2-binary

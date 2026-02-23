@@ -57,11 +57,13 @@ El proyecto es agnóstico al sistema operativo gracias a Docker.
 2. Iniciar el entorno:
 ```bash
 docker-compose up --build -d
+```
+
 
 3. Ver logs en tiempo real:
 ```bash
 docker logs -f python_arbitraje_app
-
+```
 
 ## 🗄 Estructura de Datos
 

@@ -10,17 +10,25 @@ El sistema está diseñado bajo una arquitectura de microservicios contenerizado
 
 El núcleo del monitor calcula el spread entre dos tipos de cambio implícitos:
 
-1. **Dólar CCL (Contado con Liqui):** Calculado a través del ratio del ADR de Grupo Galicia (NASDAQ: GGAL) y su contraparte local (BCBA: GGAL), aplicando el factor de conversión correspondiente.
+**1) Dólar CCL (Contado con Liqui).**  
+Calculado a través del ratio del ADR de Grupo Galicia (NASDAQ: GGAL) y su contraparte local (BCBA: GGAL), aplicando el factor de conversión correspondiente.
 
-   $$CCL = \frac{\text{Precio}_{\text{Local}} \times 10}{\text{Precio}_{\text{ADR}}}$$
+$$
+CCL=\frac{Precio_{Local}\times 10}{Precio_{ADR}}
+$$
 
-2. **Dólar Cripto (Implícito):** Calculado mediante triangulación de arbitraje utilizando Bitcoin como activo puente.
+**2) Dólar Cripto (Implícito).**  
+Calculado mediante triangulación de arbitraje utilizando Bitcoin como activo puente.
 
-   $$\text{Dólar}_{\text{Cripto}} = \frac{\text{BTC}_{\text{ARS}}}{\text{BTC}_{\text{USDT}}}$$
+$$
+D_{Cripto}=\frac{BTC_{ARS}}{BTC_{USDT}}
+$$
 
-3. **Spread (Brecha):**
+**3) Spread (Brecha).**
 
-   $$\text{Spread}_{\\%} = \left(\frac{\text{Dólar}_{\text{Cripto}} - \text{CCL}}{\text{CCL}}\right) \times 100$$
+$$
+Spread_{pct}=\left(\frac{D_{Cripto}-CCL}{CCL}\right)\times 100
+$$
 
 ## 🛠 Tech Stack
 

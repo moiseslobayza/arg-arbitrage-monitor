@@ -27,7 +27,7 @@ $$
 **3) Spread (Brecha).**
 
 $$
-Spread_{\%}=\left(\frac{D_{Cripto}-CCL}{CCL}\right)\times 100
+Spread_{pct}=\left(\frac{D_{Cripto}-CCL}{CCL}\right)\times 100
 $$
 
 ## 🛠 Tech Stack

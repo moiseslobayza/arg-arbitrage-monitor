@@ -1,15 +1,15 @@
 services:
   db:
-    image: postgres:15  # <--- Fijamos la versión 15 para que coincida con tus datos previos
+    image: postgres:15
     container_name: pg_arbitraje_prod
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: arbitrage_db
     ports:
-      - "5432:5432"
+      - "5433:5432" 
     volumes:
-      - pg_data_final:/var/lib/postgresql/data # <--- Nombre de volumen nuevo
+      - pg_data_final:/var/lib/postgresql/data
 
   monitor_app:
     build: .
@@ -21,4 +21,4 @@ services:
     restart: always
 
 volumes:
-  pg_data_final: # <--- Declaramos el volumen nuevo aquí también
+  pg_data_final:

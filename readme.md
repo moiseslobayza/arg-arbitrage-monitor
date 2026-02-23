@@ -1,73 +1,83 @@
-# Real-Time Financial Arbitrage Monitor (Argentina) 📈
+# Real-Time Financial Arbitrage Monitor 📊
 
-Sistema de monitoreo en tiempo real diseñado para detectar y alertar sobre oportunidades de arbitraje financiero, con un enfoque específico en las brechas del mercado argentino (Dólar MEP, CCL, Cripto y activos locales).
+Este proyecto implementa un sistema de monitoreo de **arbitraje financiero** en tiempo real, diseñado para detectar ineficiencias de precios entre el mercado de capitales tradicional (CCL) y el mercado de criptoactivos (Dólar Cripto) en Argentina.
 
-Este proyecto está desarrollado como parte de mi portafolio profesional, demostrando habilidades en manejo de datos financieros, conectividad vía APIs/WebSockets y optimización de algoritmos de cálculo.
+## 🚀 Descripción Técnica
 
-## 🚀 Descripción
+El sistema está diseñado bajo una arquitectura de microservicios contenerizados, priorizando la precisión matemática y la persistencia de datos para análisis histórico.
 
-El monitor analiza flujos de datos en tiempo real de diversos exchanges y fuentes de mercado para identificar ineficiencias de precios. Está diseñado para procesar grandes volúmenes de datos con baja latencia, permitiendo visualizar el "spread" neto antes de que el mercado se equilibre.
+### Lógica Cuantitativa
 
-## 🛠️ Stack Tecnológico
+El núcleo del monitor calcula el spread entre dos tipos de cambio implícitos:
 
-* **Lenguaje:** Python.
-* **Gestión de Datos:** Manejo de estructuras eficientes para cálculo de spreads.
-* **Seguridad:** Arquitectura basada en variables de entorno para protección de secretos.
-* **Entorno de Desarrollo:** Optimizado para hardware de alto rendimiento (NVIDIA RTX 5070).
+1.  **Dólar CCL (Contado con Liqui):** Calculado a través del ratio del ADR de Grupo Galicia (NASDAQ: GGAL) y su contraparte local (BCBA: GGAL), aplicando el factor de conversión correspondiente.
+    $$CCL = \frac{Precio_{Local} \times 10}{Precio_{ADR}}$$
 
-## 📊 Características Principales
+2.  **Dólar Cripto (Implícito):** Calculado mediante triangulación de arbitraje utilizando Bitcoin como activo puente.
+    $$Dolar_{Cripto} = \frac{BTC_{ARS}}{BTC_{USDT}}$$
 
-* **Detección de Arbitraje:** Cálculo instantáneo de brechas entre múltiples plataformas.
-* **Filtro de Comisiones:** Los cálculos descuentan automáticamente los fees de cada plataforma para mostrar la ganancia real.
-* **Arquitectura Robusta:** Manejo de errores de conexión y reconexión automática a WebSockets.
-* **Seguridad Primero:** Implementación estricta de `.gitignore` para evitar la filtración de claves privadas.
+3.  **Spread (Brecha):**
+    $$Spread_{\%} = \left( \frac{Dolar_{Cripto} - CCL}{CCL} \right) \times 100$$
 
-## ⚙️ Instalación y Configuración
+## 🛠 Tech Stack
+
+* **Lenguaje:** Python 3.10
+* **Base de Datos:** PostgreSQL 15 (Series temporales de precios)
+* **Contenerización:** Docker & Docker Compose
+* **APIs:**
+    * `ccxt`: Conexión optimizada a Binance (Manejo de Rate Limits y Latencia).
+    * `yfinance`: Extracción de datos de Equity (NASDAQ/MERVAL).
+
+## ⚙️ Instalación y Ejecución
+
+El proyecto es agnóstico al sistema operativo gracias a Docker.
+
+### Prerrequisitos
+* Docker & Docker Compose instalados.
+
+### Despliegue
 
 1. **Clonar el repositorio:**
-```bash
-git clone https://github.com/moiseslobayza/arg-arbitrage-monitor.git
-cd arg-arbitrage-monitor
-
-```
+   ```bash
+   git clone [https://github.com/moiseslobayza/arbitrage-monitor.git](https://github.com/moiseslobayza/arbitrage-monitor.git)
+   cd arbitrage-monitor
 
 
-2. **Configurar el entorno virtual:**
-```bash
-python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
-pip install -r requirements.txt
+2. Iniciar el entorno:
 
-```
+docker-compose up --build -d
 
+3. Ver logs en tiempo real:
 
-3. **Variables de Entorno:**
-Crea un archivo `.env` en la raíz del proyecto y completa con tus credenciales. **Nunca compartas este archivo.**
-```env
-# API Keys de Exchanges
-API_KEY_EXCHANGE_A=tu_clave_aqui
-API_SECRET_EXCHANGE_A=tu_secreto_aqui
-
-# Configuración de Alertas
-TELEGRAM_TOKEN=tu_token_si_aplica
-
-```
+docker logs -f python_arbitraje_app
 
 
-4. **Ejecutar el Monitor:**
-```bash
-python main.py
+## 🗄 Estructura de Datos
 
-```
+El sistema persiste cada *snapshot* del mercado en PostgreSQL para permitir análisis posteriores de volatilidad y reversión a la media.
 
+| Columna | Tipo | Descripción |
+| :--- | :--- | :--- |
+| `timestamp` | TIMESTAMP | Momento exacto de la captura (UTC) |
+| `ccl_val` | REAL | Valor calculado del Contado con Liqui |
+| `dolar_cripto` | REAL | Valor calculado del Dólar Cripto |
+| `ticker_adr` | REAL | Precio GGAL (NASDAQ) |
+| `ticker_local` | REAL | Precio GGAL (MERVAL) |
 
+## Próximos Pasos (Roadmap)
 
-## 📝 Roadmap
+[ ] Implementación de aiohttp para peticiones asíncronas y reducción de latencia.
 
-* [ ] Integración de notificaciones push vía Telegram.
-* [ ] Interfaz gráfica (Dashboard) para visualización histórica de spreads.
-* [ ] Implementación de lógica para arbitraje triangular.
+[ ] Integración de alertas via Telegram Bot ante spreads > 2%.
+
+[ ] Dashboard en vivo (Streamlit/Power BI) conectado a la instancia de Postgres.
+
+Autor: Moisés Lobayza
+
+Proyecto desarrollado para análisis de microestructura de mercado.
 
 ## ⚖️ Disclaimer
 
-Este software tiene fines puramente educativos y de monitoreo. El trading de activos financieros conlleva riesgos. El autor no se responsabiliza por decisiones financieras tomadas basadas en los datos proporcionados por esta herramienta.
+Este software tiene fines puramente educativos y de investigación sobre la microestructura del mercado. El trading de activos financieros conlleva riesgos significativos. El autor no se responsabiliza por pérdidas financieras derivadas del uso de esta herramienta.
+
+

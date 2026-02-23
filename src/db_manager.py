@@ -5,13 +5,13 @@ import os
 
 class DBManager:
     def __init__(self):
-        # Si corre en Docker usa 'db', si corre afuera usa 'localhost'
+        
         self.db_config = {
             "host": os.getenv('DB_HOST', 'localhost'),
             "database": "arbitrage_db",
             "user": "postgres",
             "password": "secret",
-            "port": "5433" 
+            "port": "5432" 
         }
     
     def get_connection(self):

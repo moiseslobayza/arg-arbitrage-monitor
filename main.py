@@ -28,7 +28,7 @@ def run():
                 print(f"   💰 CCL Implícito: ${data['CCL_IMPLICITO']:.2f}")
                 print(f"   🪙 Dólar Cripto:  ${data['DOLAR_CRIPTO']:.2f}")
                 
-                # ¡EL DATO CLAVE! La brecha de arbitraje
+                # Brecha de arbitraje
                 spread = data['DOLAR_CRIPTO'] - data['CCL_IMPLICITO']
                 spread_pct = (spread / data['CCL_IMPLICITO']) * 100
                 print(f"   ⚡ BRECHA: {spread_pct:.2f}% (${spread:.2f} ARS)")

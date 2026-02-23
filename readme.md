@@ -79,18 +79,13 @@ El sistema persiste cada *snapshot* del mercado en PostgreSQL para permitir aná
 
 ## Próximos Pasos (Roadmap)
 
-[ ] Implementación de aiohttp para peticiones asíncronas y reducción de latencia.
+- [ ] Implementación de `aiohttp` para peticiones asíncronas y reducción de latencia.
+- [ ] Integración de alertas vía Telegram Bot ante spreads > 2%.
+- [ ] Dashboard en vivo (Streamlit/Power BI) conectado a la instancia de Postgres.
 
-[ ] Integración de alertas via Telegram Bot ante spreads > 2%.
-
-[ ] Dashboard en vivo (Streamlit/Power BI) conectado a la instancia de Postgres.
-
-Autor: Moisés Lobayza
-
+**Autor:** Moisés Lobayza  
 Proyecto desarrollado para análisis de microestructura de mercado.
 
 ## ⚖️ Disclaimer
 
 Este software tiene fines puramente educativos y de investigación sobre la microestructura del mercado. El trading de activos financieros conlleva riesgos significativos. El autor no se responsabiliza por pérdidas financieras derivadas del uso de esta herramienta.
-
-

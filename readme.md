@@ -10,14 +10,17 @@ El sistema está diseñado bajo una arquitectura de microservicios contenerizado
 
 El núcleo del monitor calcula el spread entre dos tipos de cambio implícitos:
 
-1.  **Dólar CCL (Contado con Liqui):** Calculado a través del ratio del ADR de Grupo Galicia (NASDAQ: GGAL) y su contraparte local (BCBA: GGAL), aplicando el factor de conversión correspondiente.
-    $$CCL = \frac{Precio_{Local} \times 10}{Precio_{ADR}}$$
+1. **Dólar CCL (Contado con Liqui):** Calculado a través del ratio del ADR de Grupo Galicia (NASDAQ: GGAL) y su contraparte local (BCBA: GGAL), aplicando el factor de conversión correspondiente.
 
-2.  **Dólar Cripto (Implícito):** Calculado mediante triangulación de arbitraje utilizando Bitcoin como activo puente.
-    $$Dolar_{Cripto} = \frac{BTC_{ARS}}{BTC_{USDT}}$$
+   $$CCL = \frac{\text{Precio}_{\text{Local}} \times 10}{\text{Precio}_{\text{ADR}}}$$
 
-3.  **Spread (Brecha):**
-    $$Spread_{\%} = \left( \frac{Dolar_{Cripto} - CCL}{CCL} \right) \times 100$$
+2. **Dólar Cripto (Implícito):** Calculado mediante triangulación de arbitraje utilizando Bitcoin como activo puente.
+
+   $$\text{Dólar}_{\text{Cripto}} = \frac{\text{BTC}_{\text{ARS}}}{\text{BTC}_{\text{USDT}}}$$
+
+3. **Spread (Brecha):**
+
+   $$\text{Spread}_{\\%} = \left(\frac{\text{Dólar}_{\text{Cripto}} - \text{CCL}}{\text{CCL}}\right) \times 100$$
 
 ## 🛠 Tech Stack
 
@@ -33,13 +36,13 @@ El núcleo del monitor calcula el spread entre dos tipos de cambio implícitos:
 El proyecto es agnóstico al sistema operativo gracias a Docker.
 
 ### Prerrequisitos
-* Docker & Docker Compose instalados.
+- Docker y Docker Compose instalados.
 
 ### Despliegue
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/moiseslobayza/arbitrage-monitor.git](https://github.com/moiseslobayza/arbitrage-monitor.git)
+   git clone https://github.com/moiseslobayza/arbitrage-monitor.git
    cd arbitrage-monitor
 
 
